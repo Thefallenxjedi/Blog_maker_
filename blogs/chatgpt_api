@@ -1,0 +1,447 @@
+ChatGPT API: How to Set Up, Pricing, and Code Examples (2026)
+Zeyad Genena
+Zeyad Genena
+
+Feb 9, 2026
+13 min read
+
+ChatGPT API: How to Set Up, Pricing, and Code Examples (2026) 
+TABLE OF CONTENTS
+
+What Is the ChatGPT API?
+ChatGPT API Models and Pricing (2026)
+How to Set Up the ChatGPT API
+Setting Up Your Development Environment
+Best Practices for Using the ChatGPT API
+Rate Limits and Access Tiers
+App Ideas to Build with the ChatGPT API
+Frequently Asked Questions
+Ready to Build with the ChatGPT API?
+Side CTA
+AI Agent built in minutes
+Check icon
+Connect to your data instantly
+Check icon
+Train with your content in clicks
+Build your agent for free
+The ChatGPT API gives developers programmatic access to OpenAI's most advanced models, including the recently launched GPT-5.4 family. Whether you are building a customer support agent, a content generation pipeline, or a data analysis tool, this guide walks you through everything from API key setup to production deployment with current pricing, code examples, and best practices.
+
+By the end of this guide, you will know how to choose the right model, make your first API call, use advanced features like function calling and structured outputs, and keep costs under control.
+
+What Is the ChatGPT API?
+The ChatGPT API is OpenAI's developer platform that lets you integrate AI capabilities directly into your applications through simple HTTP requests. Instead of building AI from scratch, you get instant access to the same models that power ChatGPT, including GPT-5.4 (OpenAI's latest flagship), reasoning models like o3 and o4-mini, and specialized models for images, audio, and video.
+
+How the ChatGPT API Actually Works
+The API works differently from the ChatGPT chat interface. Instead of typing into a browser window, you send structured requests to OpenAI's servers and receive JSON responses containing the model's output.
+
+The process follows four steps:
+
+You send a request. Your application sends a POST request to OpenAI's API endpoint with a JSON payload containing the model name, a list of messages (developer instructions, user input, and optionally previous assistant responses), and parameters like temperature and max tokens.
+
+OpenAI processes the request. The model reads your messages, generates a response token by token, and packages the result into a JSON response object. If you enable streaming, tokens arrive incrementally instead of all at once.
+
+Your application receives the response. The response includes the generated text, the number of tokens consumed (both input and output), and metadata like the model version and a unique request ID.
+
+Billing occurs. OpenAI charges based on the total tokens processed. Input tokens (your prompt) and output tokens (the model's response) are billed at different rates, with output tokens typically costing 3x to 6x more than input tokens.
+
+Every design decision in your application, from prompt length to model selection to caching strategy, directly affects both performance and cost. Understanding this cycle is the foundation for building efficiently.
+
+If you want to skip the API setup and deploy a fully functional AI agent in under five minutes with zero code, Chatbase connects to the same OpenAI models and adds channels like WhatsApp, Slack, and your website out of the box.
+
+Launch my AI agent without code
+
+ChatGPT API Models and Pricing (2026)
+OpenAI's model lineup has evolved significantly. GPT-5.4, launched in early 2026, is now the flagship. GPT-4o was retired from ChatGPT in February 2026, and the GPT-4.1 family is now considered previous-generation. Pricing is based on tokens, where roughly 750 English words equal 1,000 tokens. You pay separately for input tokens (your prompt) and output tokens (the model's response).
+
+Current Flagship Models: GPT-5.4 Family
+GPT-5.4 costs $2.50 per million input tokens ($0.25 cached) and $15.00 per million output tokens. It has a 1.05 million token context window and is best for complex professional workflows, agentic tasks, and coding.
+
+GPT-5.4 mini costs $0.75 per million input tokens ($0.075 cached) and $4.50 per million output tokens. Same 1.05 million token context window at a fraction of the cost. Best for high-volume coding and agent workflows.
+
+GPT-5.4 nano costs $0.20 per million input tokens ($0.02 cached) and $1.25 per million output tokens. Same 1.05 million token context window. Built for simple, high-throughput tasks like classification and routing.
+
+GPT-5.4 pro costs $30.00 per million input tokens and $180.00 per million output tokens. Same 1.05 million token context window. Reserved for complex problems that require the deepest available reasoning.
+
+Key GPT-5.4 capabilities: 128K max output tokens, built-in computer use, native tool search, reasoning effort control (none/low/medium/high/xhigh), and agentic web search. The Responses API is the recommended way to use GPT-5.4 (more on this below).
+
+Previous-Generation Models (Still Available)
+GPT-5.2 costs $1.75 per million input tokens and $14.00 per million output tokens with a 400K token context window. Available but superseded by GPT-5.4.
+
+GPT-5 mini costs $0.25 per million input tokens and $2.00 per million output tokens with a 400K token context window. Still available as a budget option.
+
+GPT-5 nano costs $0.05 per million input tokens and $0.40 per million output tokens with a 400K token context window. The cheapest model available.
+
+GPT-4.1 costs $2.00 per million input tokens and $8.00 per million output tokens with a 1 million token context window. Legacy model, still available.
+
+GPT-4.1 mini costs $0.40 per million input tokens and $1.60 per million output tokens with a 1 million token context window. Legacy model, still available.
+
+GPT-4.1 nano costs $0.10 per million input tokens and $0.40 per million output tokens with a 1 million token context window. Legacy model, still available.
+
+Reasoning Models
+o3 costs $2.00 per million input tokens and $8.00 per million output tokens with a 200K token context window. Built for complex multi-step reasoning, math, and science.
+
+o4-mini costs $1.10 per million input tokens and $4.40 per million output tokens with a 200K token context window. Fast reasoning at lower cost.
+
+o3-mini costs $0.55 per million input tokens and $2.20 per million output tokens with a 200K token context window. Budget reasoning option.
+
+How to Choose the Right Model
+For most new applications in 2026, start with GPT-5.4 mini. It is significantly more capable than GPT-4.1 mini, handles coding and agent workflows well, and shares the same 1.05 million token context window as the full GPT-5.4. Only upgrade to GPT-5.4 or GPT-5.4 pro if your use case requires frontier-level intelligence.
+
+Use this decision framework:
+
+Customer support agents, Q&A bots, content generation: GPT-5.4 mini or GPT-5 mini (for budget-sensitive applications)
+Code generation, complex analysis, agentic workflows: GPT-5.4 or GPT-5.4 mini
+Image understanding, multimodal applications: GPT-5.4 (native vision support)
+Math, science, multi-step reasoning: o3 or o4-mini
+Classification, tagging, simple extraction at high volume: GPT-5.4 nano or GPT-5 nano
+Deepest reasoning for hard problems: GPT-5.4 pro (use sparingly due to cost)
+For a broader view of how these models compare to competitors, see our guide to the best large language models available today.
+
+How to Set Up the ChatGPT API
+Before you can start making API calls, you need an API key to authenticate your requests. This key connects to your OpenAI account, manages billing, and determines which models you can access.
+
+How to Obtain an OpenAI API Key
+Your API key is your authentication credential for accessing OpenAI's models. You'll only see this key once when you generate it, so store it securely immediately.
+
+Step 1: Access the OpenAI Platform
+
+Visit platform.openai.com/api-keys and sign up or log in to your account
+[object Object]
+Step 2: Create Your API Key
+
+Navigate to API Keys in the left sidebar of your dashboard
+[object Object]
+Click "Create new secret key" and optionally name it for your project
+[object Object]
+Copy the generated key immediately because you won't be able to see it again
+Step 3: Store It Securely
+
+Save your key in a secure location like a password manager or environment variables
+Never commit API keys to version control or expose them in client-side code
+Add your key to a .env file in your project: OPENAI_API_KEY="sk-..."
+Include .env in your .gitignore file to prevent accidental exposure
+Important Security Notes:
+
+Each API key links to your OpenAI account and billing
+Lost keys cannot be recovered; you'll need to generate a new one
+Rotate keys regularly and revoke any keys you suspect are compromised
+Use project-scoped keys when working on multiple applications
+With your API key in hand, the next step is setting up your development tools.
+
+Setting Up Your Development Environment
+This process ensures you’re ready to make API calls, write custom code, and integrate the ChatGPT API into your applications.
+
+The ChatGPT API works with any programming language that can make HTTP requests.
+
+However, some languages offer better tooling and community support than others. Here are the most popular choices:
+
+1. Python: Simplicity and a Rich Ecosystem
+Python stands out for its simplicity and readability, making it ideal for beginners and experts alike. It's the most popular choice for working with the ChatGPT API due to its straightforward syntax and extensive library ecosystem.
+
+The official openai Python package simplifies everything from authentication to request formatting and error handling. Beyond the API itself, Python's rich ecosystem includes packages like python-dotenv for environment management, making it easy to build secure, production-ready applications.
+
+Python is also incredibly versatile as it's used in everything from machine learning and data science to web development and automation. This makes it perfect for projects that combine the ChatGPT API with other AI/ML tools or data processing workflows.
+
+2. JavaScript: Flexibility for Web Applications
+JavaScript is one of the most widely used programming languages for building web applications, and it integrates seamlessly with the ChatGPT API. With Node.js on the backend and frameworks like React, Vue, or Next.js on the frontend, JavaScript enables you to build both browser-based and server-side applications.
+
+JavaScript's asynchronous nature is particularly well-suited for API requests. Features like async/await and Promises make it easy to handle multiple API calls without blocking your application, ensuring smooth performance even during real-time interactions.
+
+This makes JavaScript ideal for building chatbots, customer support tools, content generation interfaces, and any application where users interact with AI directly in their browser.
+
+3. Java: Scalability and Performance
+Java is a robust, high-performance language ideal for enterprise-level applications. It's commonly used in environments where stability, scalability, and security are mission-critical requirements.
+
+Java's strong typing system helps catch errors at compile time, reducing bugs in production. Its multi-threading capabilities allow you to handle numerous concurrent API requests efficiently, making it a strong choice for large-scale systems that need to serve thousands of users simultaneously.
+
+If you're building enterprise software, microservices architectures, or applications that require tight integration with existing Java-based systems, Java provides the reliability and performance you need.
+
+Why We're Using Python for This Guide
+
+For this guide, we'll be using Python to demonstrate how to build with the ChatGPT API. Python's simplicity and the robust official SDK provided by OpenAI make it the most accessible option for developers at any skill level.
+
+Even if you're new to programming, Python's readable syntax makes it easy to follow along and understand what's happening in each step. If you prefer JavaScript or Java, the concepts will translate easily, you'll just need to adapt the syntax to your language of choice.
+
+Below, we’ll walk you through setting up your development environment using Python.
+
+Best Practices for Using the ChatGPT API
+The following best practices will help you maximize the API's potential while maintaining security, controlling costs, and delivering a seamless experience to your users.
+
+1. Write Clear and Specific Prompts
+The quality of your API responses depends heavily on how you structure your prompts. The more specific and clear your instructions, the better the output.
+
+Best practices for prompts:
+
+Be explicit about what you want (format, tone, length)
+Provide examples when possible (few-shot prompting)
+Use system messages to set behavior and context
+Break complex tasks into smaller, sequential steps
+Example:
+
+prompt.py
+
+
+# Bad prompt
+response = client.chat.completions.create(
+    model="gpt-4.1", messages=[{"role": "user", "content": "Write about marketing"}]
+)
+
+# Good prompt
+response = client.chat.completions.create(
+    model="gpt-4.1",
+    messages=[
+        {
+            "role": "system",
+            "content": "You are a digital marketing expert who writes concise, actionable advice.",
+        },
+        {
+            "role": "user",
+            "content": "Write a 3-paragraph email marketing strategy for a SaaS startup targeting small businesses. Focus on deliverability, segmentation, and automation.",
+        },
+    ],
+)
+2. Use Structured Outputs for Reliable Data
+When you need JSON responses or structured data, use the API's structured output feature instead of parsing free-form text. This guarantees valid JSON every time.
+
+prompt.py
+
+
+response = client.chat.completions.create(
+    model="gpt-4.1",
+    messages=[
+        {
+            "role": "user",
+            "content": "Extract the product name, price, and category from: 'The new iPhone 15 Pro costs $999 and is in the smartphones category'",
+        }
+    ],
+    response_format={
+        "type": "json_schema",
+        "json_schema": {
+            "name": "product_extraction",
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "product_name": {"type": "string"},
+                    "price": {"type": "number"},
+                    "category": {"type": "string"},
+                },
+                "required": ["product_name", "price", "category"],
+            },
+        },
+    },
+)
+
+This eliminates parsing errors and ensures your application receives data in the exact format you need.
+
+3. Implement Streaming for Better User Experience
+For conversational applications, stream responses token-by-token instead of waiting for the complete response. This dramatically improves perceived responsiveness.
+
+prompt.py
+
+
+stream = client.chat.completions.create(
+    model="gpt-4.1-mini",
+    messages=[{"role": "user", "content": "Explain quantum computing in simple terms"}],
+    stream=True,
+)
+
+for chunk in stream:
+    if chunk.choices[0].delta.content:
+        print(chunk.choices[0].delta.content, end="")
+Users see output immediately, making your application feel faster and more interactive.
+
+4. Manage Context and Token Limits
+Each model has a maximum context window (total tokens for input + output). Monitor your token usage to avoid truncation and unexpected costs.
+
+Token management strategies:
+
+Keep conversation history concise, Summarize or trim old messages
+Use max_tokens parameter to cap response length
+Check usage in the response to track consumption
+For long documents, consider chunking or summarization
+prompt.py
+
+
+response = client.chat.completions.create( model="gpt-4.1-mini", messages=messages, max_tokens=500 # Limit response length )
+
+# Track usage print(f"Tokens used: {response.usage.total_tokens}")
+5. Handle Errors Gracefully
+API calls can fail for various reasons: network issues, rate limits, invalid requests, or service outages. Implement robust error handling to maintain a smooth user experience.
+
+prompt.py
+
+
+from openai import OpenAI, APIError, RateLimitError, APIConnectionError
+import time
+
+
+def make_api_call_with_retry(client, messages, max_retries=3):
+    for attempt in range(max_retries):
+        try:
+            response = client.chat.completions.create(
+                model="gpt-4.1-mini", messages=messages
+            )
+            return response
+
+        except RateLimitError:
+            # Exponential backoff
+            wait_time = (2**attempt) + 1
+            print(f"Rate limit hit. Retrying in {wait_time} seconds...")
+            time.sleep(wait_time)
+
+        except APIConnectionError:
+            print(f"Connection error. Retrying... (Attempt {attempt + 1})")
+            time.sleep(2)
+
+        except APIError as e:
+            print(f"API error: {e}")
+            return None
+
+    print("Max retries exceeded")
+    return None
+
+6. Optimize Costs
+API usage can become expensive if not managed carefully. Here's how to minimize costs while maintaining quality:
+
+Cost optimization strategies:
+
+Choose the right model: Use gpt-4.1-mini or gpt-4.1-nano for simpler tasks instead of gpt-5
+Limit output length: Set max_tokens to prevent unnecessarily long responses
+Cache frequent queries: Store responses for common questions instead of making repeated API calls
+Batch similar requests: Group multiple operations when possible
+Monitor usage: Regularly check your OpenAI dashboard for spending patterns
+prompt.py
+
+
+# Cost-effective approach
+response = client.chat.completions.create(
+    model="gpt-4.1-mini",  # Cheaper model for simple tasks
+    messages=[{"role": "user", "content": prompt}],
+    max_tokens=150,  # Limit response length
+    temperature=0.3,  # Lower temperature for more deterministic, cheaper outputs
+)
+
+Pro tip: Check the OpenAI pricing page regularly to understand the cost per token for each model.
+
+7. Implement Rate Limiting
+OpenAI enforces rate limits based on your account tier (requests per minute and tokens per minute). Exceeding these limits results in 429 errors.
+
+How to handle rate limits:
+
+Implement exponential backoff when you hit limits
+Track your request rate and throttle before hitting limits
+Consider upgrading your account tier for higher limits
+Use batch processing for large workloads
+8. Use Function Calling for Tool Integration
+Function calling allows the model to intelligently decide when to call your application's functions or APIs, enabling dynamic, tool-augmented responses.
+
+prompt.py
+
+
+tools = [
+    {
+        "type": "function",
+        "function": {
+            "name": "get_weather",
+            "description": "Get current weather for a location",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "location": {"type": "string", "description": "City name"}
+                },
+                "required": ["location"],
+            },
+        },
+    }
+]
+
+response = client.chat.completions.create(
+    model="gpt-4.1",
+    messages=[{"role": "user", "content": "What's the weather in San Francisco?"}],
+    tools=tools,
+)
+
+# Check if model wants to call a function
+if response.choices[0].message.tool_calls:
+    # Execute your function and return results to the model
+    pass
+9. Secure Your API Key
+Your API key is tied to your billing and account. Compromised keys can lead to unauthorized usage and unexpected charges.
+
+Security best practices:
+
+Never commit keys to version control: Use .env files and add them to .gitignore
+Use environment variables: Keep keys out of your codebase
+Rotate keys regularly: Generate new keys periodically and revoke old ones
+Use separate keys per project: Makes it easier to track usage and revoke access
+Monitor usage: Check your OpenAI dashboard regularly for unusual activity
+Restrict key permissions: Use project-scoped keys when possible
+10. Test with Different Models
+GPT-5.4 is the most capable, but not always the most cost-effective. Start with GPT-5.4 nano or GPT-5.4 mini and upgrade only if quality requires it. The GPT-4.1 family is still available at lower prices for applications that do not need GPT-5.4 level intelligence. A/B test model selections on real workloads to find the right balance of quality and cost.
+
+Rate Limits and Access Tiers
+OpenAI limits requests and tokens per minute based on your account tier. New accounts start with lower limits that increase as you spend more.
+
+Free tier: Available in eligible countries. $100 monthly spend cap.
+Tier 1: $5+ total spend, 7+ days account age. $100 monthly cap.
+Tier 2: $50+ total spend, 7+ days. $500 monthly cap.
+Tier 3: $100+ total spend, 7+ days. $1,000 monthly cap.
+Tier 4: $250+ total spend, 14+ days. $5,000 monthly cap.
+Tier 5: $1,000+ total spend, 30+ days. $200,000 monthly cap.
+When you hit a rate limit (429 status code), use exponential backoff. Most OpenAI SDKs handle this automatically. Monitor usage through the OpenAI usage dashboard and set spending alerts to avoid surprises.
+
+App Ideas to Build with the ChatGPT API
+1. Customer Support Chatbots
+Build AI agents that handle FAQs, track orders, troubleshoot issues, and provide 24/7 AI-powered customer support in multiple languages. With function calling, your agent can integrate with CRM platforms, ticketing systems, and order management tools for real-time, personalized assistance.
+
+If you prefer a no-code approach, you can build an AI chatbot without code using platforms that handle the API integration for you.
+
+2. Virtual Assistants for Productivity
+Build assistants that manage schedules, draft emails, organize tasks, summarize documents, and extract action items from meeting notes by integrating with productivity APIs like Google Calendar and Microsoft Graph.
+
+3. AI-Powered Educational Tools
+Create language learning apps with real conversation practice, interactive tutors that adapt to each student's level, coding mentors that review work with constructive feedback, and study tools that generate practice questions.
+
+4. Content Creation Tools
+Build tools for SEO-optimized blog generation, social media content, email campaigns, product descriptions, and video scripts. GPT-5.4's improved instruction following makes it particularly strong at maintaining brand voice consistency across large content volumes.
+
+5. Data Analysis and Insights
+Let users query databases in plain English, generate automated reports, identify trends in sales data, and create dashboard narratives that explain what the numbers mean. GPT-5.4's advanced data analysis capabilities and 1.05M token context window make it possible to process entire datasets in a single request.
+
+6. Code Generation and Debugging
+Build code generators, automated documentation writers, bug detectors, refactoring assistants, and unit test generators. GPT-5.4 was specifically optimized for coding tasks and outperforms previous generations on code benchmarks.
+
+7. Knowledge Bases and Intelligent Search
+Create internal company knowledge bases with conversational search, legal research assistants, medical information systems, and academic tools that summarize papers. Pair with Retrieval-Augmented Generation (RAG) techniques for domain-specific accuracy. You can also train ChatGPT on your own data to build a custom knowledge assistant.
+
+Frequently Asked Questions
+Does ChatGPT have an API?
+
+Yes. OpenAI provides a full API that gives developers programmatic access to all ChatGPT models, including GPT-5.4, GPT-5.4 mini, o3, and o4-mini. You can integrate these capabilities into any application using HTTP requests or official SDKs for Python and JavaScript.
+
+How much does the ChatGPT API cost?
+
+Pricing depends on the model. GPT-5.4 mini, the recommended starting point for most applications, costs $0.75 per million input tokens and $4.50 per million output tokens. The cheapest option is GPT-5 nano at $0.05 per million input tokens. OpenAI also offers prompt caching (up to 90% off input), batch processing (50% off), and flex processing (50% off) to reduce costs further.
+
+What is the difference between ChatGPT and the ChatGPT API?
+
+ChatGPT is the consumer chat interface at chat.openai.com. The ChatGPT API is a developer tool for sending requests programmatically and receiving structured responses. The API gives you control over model selection, temperature, token limits, developer prompts, function calling, structured outputs, and reasoning effort, none of which are available in the chat interface.
+
+What is the newest model available in the ChatGPT API?
+
+As of April 2026, GPT-5.4 is OpenAI's newest and most capable model. It features a 1.05 million token context window, 128K max output, built-in computer use capabilities, and reasoning effort controls from "none" to "xhigh". It supersedes GPT-5.2 and is available in four variants: GPT-5.4, GPT-5.4 mini, GPT-5.4 nano, and GPT-5.4 pro.
+
+Should I use the Responses API or Chat Completions?
+
+For new projects using GPT-5.4, the Responses API is recommended. It supports chain-of-thought persistence between turns, native tool integration (web search, file search, computer use), and a phase parameter that prevents early stopping in agentic workflows. Chat Completions still works and is fully supported, so existing applications do not need to migrate immediately.
+
+Can I use the ChatGPT API for free?
+
+OpenAI offers limited free credits for new accounts, but ongoing use requires a paid account. GPT-5 nano at $0.05 per million input tokens is the cheapest option, meaning you can process roughly 15 million words for $1. For prototyping and development, costs are typically negligible.
+
+Ready to Build with the ChatGPT API?
+The ChatGPT API gives you maximum control, but if you need an AI agent live today without writing a single line of code, Chatbase handles everything from model selection to deployment across every channel.
+
+Start my free AI agent now
+
+Start with a proof-of-concept using GPT-5.4 mini to keep costs low while you experiment. Focus on solving one specific problem rather than building everything at once. As you gain confidence, scale up to GPT-5.4 and advanced features like the Responses API and reasoning effort controls.
